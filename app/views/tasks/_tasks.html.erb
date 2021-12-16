@@ -1,0 +1,14 @@
+<% if tasks.any? %>
+<ul>
+    <% tasks.each do |task| %>
+    <li>
+        <div>
+             <%= link_to task.user.name, user_path(task.user), class: "text-decoration-none" %> <span class="text-muted">posted at <%= task.created_at %></span>
+        </div>
+        <div>
+            <p><%= task.content %></p>
+        </div>
+    </li>
+    <% end %>
+</ul>
+<% end %>
