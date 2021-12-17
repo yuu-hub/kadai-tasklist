@@ -17,10 +17,8 @@ ActiveRecord::Schema.define(version: 2021_12_15_031513) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "status"
-    t.bigint "user_id_id", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_tasks_on_user_id"
-    t.index ["user_id_id"], name: "index_tasks_on_user_id_id"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
