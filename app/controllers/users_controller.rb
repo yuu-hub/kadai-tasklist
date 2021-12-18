@@ -5,8 +5,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    # @tasks = @user.tasks.order(id: :desc)
-    # counts(@user)
+    @tasks = @user.tasks.order(id: :desc)
   end
 
   def new
@@ -23,7 +22,7 @@ class UsersController < ApplicationController
       flash.now[:danger] = 'ユーザの登録に失敗しました。'
       render :new
     end
-  end
+end  
   
   private
 
