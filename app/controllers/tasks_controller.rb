@@ -1,20 +1,19 @@
 class TasksController < ApplicationController
   before_action :require_user_logged_in
-  before_action :correct_user, only: [:destroy]
+  before_action :correct_user, only: [:show, :edit, :update, :destroy]
   
   def index
+    @tasks = current_user.tasks
+  end
+
+  def show
+  end
+
+  def new
     if logged_in?
       @task = current_user.tasks.build  # form_with 用
       @tasks = current_user.tasks.order(id: :desc)
     end
-  end
-
-  def show
-    @task = Task.find(params[:id])
-  end
-
-  def new
-    @task = Task.new
   end
 
   def create
@@ -26,18 +25,15 @@ class TasksController < ApplicationController
     else
       @tasks = current_user.tasks.order(id: :desc)
       flash.now[:danger] = 'タスク が作成されませんでした'
-      render 'toppages/index'
+      render 'new'
     end
   end
 
   def edit
-    @task = Task.find(params[:id])
   end
 
   def update
-    @task = Task.find(params[:id])
-
-    if @task.update(task_params)
+    if @task.update
       flash[:success] = 'Task が正常に更新されました'
       redirect_to @task
     else
@@ -63,6 +59,12 @@ class TasksController < ApplicationController
     @task = current_user.tasks.find_by(id: params[:id])
     unless @task
       redirect_to root_url
+    end
+  end
+  
+  def require_user_logged_in
+    unless logged_in?
+      redirect_to login_url
     end
   end
 end

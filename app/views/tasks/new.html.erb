@@ -1,5 +1,16 @@
 <h1>タスク新規作成ページ</h1>
 
-<%= render 'form', task: @task %>
+ <%= form_with(model: @task) do |f| %>
+        <div class="mb-3">
+            <%= f.label :content, '新規タスク' %>
+            <%= f.text_field :content %>
+        </div>
+        <div class="mb-3">
+            <%= f.label :status, 'ステータス' %>
+            <%= f.text_field :status %>
+        </div>  
 
-<%= link_to '一覧に戻る', tasks_path %>
+        <%= f.submit '投稿', class: 'btn btn-primary w-100' %>
+      <% end %>
+
+<%= link_to '一覧に戻る', root_path %>
