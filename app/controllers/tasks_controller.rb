@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :require_user_logged_in
   before_action :correct_user, only: [:show, :edit, :update, :destroy]
   
   def index
@@ -19,7 +20,6 @@ class TasksController < ApplicationController
       flash[:success] = 'タスク が作成されました'
       redirect_to root_url
     else
-      # @tasks = current_user.tasks.order(id: :desc)
       flash.now[:danger] = 'タスク が作成されませんでした'
       render 'new'
     end
@@ -57,4 +57,5 @@ class TasksController < ApplicationController
       redirect_to root_url
     end
   end
+  
 end
